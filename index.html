@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Smart AI Chef Engine</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+
+<body>
+
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <h2>Chef Engine OS</h2>
+            <nav class="nav-menu">
+                <button class="nav-link active" onclick="switchTab('kitchen')">🍳 Smart Kitchen</button>
+                <button class="nav-link" onclick="switchTab('mealplanner')">📅 AI Meal Planner</button>
+                <button class="nav-link" onclick="switchTab('favorites')">❤️ Saved Cookbook</button>
+            </nav>
+        </aside>
+
+        <main class="main-workspace">
+            <section id="kitchen-tab" class="tab-panel active">
+                <div class="grid-layout">
+                    <div class="control-box flex-col">
+                        <h3>Inventory Inputs</h3>
+
+                        <!-- REMOVED THE SCAN FRIDGE DROPZONE MODULE FROM THIS SLOT -->
+
+                        <div class="tag-box-wrapper">
+                            <label class="sub-heading">Ingredients List</label>
+                            <div class="tag-container" id="tagContainer">
+                                <input type="text" id="ingredientInput" placeholder="Press Enter to add items...">
+                            </div>
+                        </div>
+
+                        <div class="expiry-manager">
+                            <label class="sub-heading">♻️ Food Waste Tracker</label>
+                            <div class="expiry-row">
+                                <input type="text" id="expiryName" placeholder="Item name">
+                                <input type="number" id="expiryDays" placeholder="Days to expiry" min="0">
+                                <button class="small-btn" onclick="addExpiryItem()">Add</button>
+                            </div>
+                            <ul id="expiryList" class="expiry-badge-list"></ul>
+                        </div>
+
+                        <div class="filter-matrix">
+                            <div>
+                                <label class="sub-heading">Dietary Target</label>
+                                <select id="dietSelect" class="form-select">
+                                    <option value="None">No Restrictions</option>
+                                    <option value="Vegetarian">Vegetarian</option>
+                                    <option value="Vegan">Vegan</option>
+                                    <option value="Keto">Keto</option>
+                                    <option value="Gluten-Free">Gluten-Free</option>
+                                    <option value="Halal">Halal</option>
+                                    <option value="High-Protein">High-Protein</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="sub-heading">Serving Adjuster</label>
+                                <select id="servingSelect" class="form-select">
+                                    <option value="1">1 Person</option>
+                                    <option value="2">2 People</option>
+                                    <option value="4" selected>4 People</option>
+                                    <option value="6">6 People</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button class="action-btn" id="generateRecipeBtn" onclick="triggerAdvancedGeneration()">Generate Custom Recipe</button>
+                    </div>
+
+                    <div class="display-box">
+                        <div id="kitchen-loader" class="loader-widget hidden">
+                            <div class="spinner"></div>
+                            <p>Analyzing parameters & composing instructions...</p>
+                        </div>
+
+                        <div id="recipeCard" class="recipe-display-card hidden">
+                            <div class="recipe-top-bar">
+                                <h2 id="recipeTitle">Recipe Name</h2>
+                                <button class="fav-icon-btn" onclick="toggleSaveCurrentRecipe()">❤️ Save Recipe</button>
+                            </div>
+
+                            <div class="metric-ribbon">
+                                <div>⏱️ <span id="metaTime">-</span></div>
+                                <div>📊 Difficulty: <span id="metaDiff">-</span></div>
+                                <div>💰 Cost: <span id="metaCost">-</span></div>
+                            </div>
+
+                            <h3>Nutrition Metrics</h3>
+                            <div class="nutrition-matrix" id="nutritionPanel"></div>
+
+                            <h3>Smart Ingredient Substitutions</h3>
+                            <div id="substitutionAlerts" class="substitution-container"></div>
+
+                            <div class="recipe-split-lists">
+                                <div>
+                                    <h3>Scaled Ingredients</h3>
+                                    <ul id="scaledIngredientsUl" class="styled-bullet-list"></ul>
+                                </div>
+                                <div id="shoppingSection">
+                                    <h3>Missing Items (Shopping List)</h3>
+                                    <ul id="shoppingListUl" class="styled-bullet-list"></ul>
+                                    <button class="secondary-btn" onclick="downloadShoppingListPDF()">Download List PDF 🛒</button>
+                                </div>
+                            </div>
+
+                            <div class="voice-assistant-panel">
+                                <h3>🎙️ Voice Assistant Engine</h3>
+                                <div class="voice-controls">
+                                    <button class="voice-btn" onclick="startVoiceAssistant()">Activate Assistant</button>
+                                    <button class="voice-btn stop" onclick="stopVoiceAssistant()">Deactivate</button>
+                                </div>
+                                <p class="voice-hint">Commands: <b>"Next Step"</b>, <b>"Repeat"</b>, or <b>"Set Timer"</b></p>
+                            </div>
+
+                            <h3>Instructions Checklist</h3>
+                            <div id="stepsContainer" class="checklist-stack"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="mealplanner-tab" class="tab-panel">
+                <div class="card flex-col">
+                    <h2>Weekly AI Meal Planner</h2>
+                    <p class="description">Generates a customized 7-day meal layout based on your current kitchen settings.</p>
+                    <button class="action-btn" onclick="triggerMealPlanGeneration()">Build Weekly Plan</button>
+
+                    <div id="meal-loader" class="loader-widget hidden">
+                        <div class="spinner"></div>
+                    </div>
+                    <div id="mealPlanGrid" class="meal-plan-grid"></div>
+                </div>
+            </section>
+
+            <section id="favorites-tab" class="tab-panel">
+                <div class="card">
+                    <h2>Your Saved Cookbook</h2>
+                    <div id="favoritesContainer" class="favorites-flex-grid"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

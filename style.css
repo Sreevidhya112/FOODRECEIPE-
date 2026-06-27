@@ -1,0 +1,432 @@
+:root {
+    --bg-dark: #090d16;
+    --surface: #131c2e;
+    --surface-light: #1e293b;
+    --accent: #10b981;
+    --accent-hover: #059669;
+    --text-main: #f8fafc;
+    --text-alt: #94a3b8;
+    --border-line: #2e3c52;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background-color: var(--surface);
+    border-right: 1px solid var(--border-line);
+    padding: 2rem 1.5rem;
+}
+
+.sidebar h2 {
+    color: var(--accent);
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+}
+
+.nav-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.nav-link {
+    background: none;
+    border: none;
+    color: var(--text-alt);
+    text-align: left;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    background-color: var(--surface-light);
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.main-workspace {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+}
+
+.tab-panel {
+    display: none;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+
+/* Grid Layout Matrix Panels */
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 2rem;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.card {
+    background-color: var(--surface);
+    border: 1px solid var(--border-line);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.control-box {
+    background-color: var(--surface);
+    border: 1px solid var(--border-line);
+    padding: 1.5rem;
+    border-radius: 12px;
+    height: fit-content;
+}
+
+.display-box {
+    background-color: var(--surface);
+    border: 1px solid var(--border-line);
+    padding: 2rem;
+    border-radius: 12px;
+    min-height: 500px;
+}
+
+
+/* Input Modules styling */
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0.5rem;
+    border: 1px solid var(--border-line);
+    background: var(--bg-dark);
+    border-radius: 6px;
+    margin-top: 0.25rem;
+}
+
+.tag-container input {
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 0.25rem;
+    flex: 1;
+    min-width: 100px;
+}
+
+.tag {
+    background: var(--surface-light);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+}
+
+.tag span {
+    color: #f87171;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.sub-heading {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-alt);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.form-select,
+.expiry-row input {
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-line);
+    padding: 0.5rem;
+    border-radius: 6px;
+    color: white;
+    width: 100%;
+    outline: none;
+}
+
+.expiry-row {
+    display: grid;
+    grid-template-columns: 1fr 80px auto;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.action-btn {
+    background-color: var(--accent);
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    width: 100%;
+}
+
+.action-btn:hover {
+    background-color: var(--accent-hover);
+}
+
+.secondary-btn,
+.small-btn {
+    background: var(--surface-light);
+    border: 1px solid var(--border-line);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.secondary-btn:hover {
+    background: var(--border-line);
+}
+
+
+/* Internal Recipe Content Decorators */
+
+.recipe-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-line);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.fav-icon-btn {
+    background: none;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.fav-icon-btn.saved {
+    background: var(--accent);
+    color: white;
+}
+
+.metric-ribbon {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-alt);
+    font-size: 0.95rem;
+}
+
+.nutrition-matrix {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem 0;
+}
+
+.nut-card {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-line);
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.nut-val {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.nut-lbl {
+    font-size: 0.75rem;
+    color: var(--text-alt);
+}
+
+.substitution-container {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid #f59e0b;
+    padding: 0.75rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.recipe-split-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.styled-bullet-list {
+    list-style: none;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.styled-bullet-list li {
+    background: var(--bg-dark);
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+
+/* Checklist and Assistant UI Elements */
+
+.checklist-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.step-item {
+    display: flex;
+    gap: 0.75rem;
+    background: var(--bg-dark);
+    padding: 0.75rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.step-item.completed {
+    opacity: 0.4;
+    text-decoration: line-through;
+}
+
+.voice-assistant-panel {
+    background: var(--surface-light);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.voice-controls {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.voice-btn {
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    border: none;
+    background: var(--accent);
+    color: white;
+    cursor: pointer;
+}
+
+.voice-btn.stop {
+    background: #ef4444;
+}
+
+.voice-hint {
+    font-size: 0.8rem;
+    color: var(--text-alt);
+}
+
+
+/* Loader Configuration styling */
+
+.loader-widget {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem 0;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border-line);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+
+/* Grid Layout parameters for meal schedules */
+
+.meal-plan-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.day-card {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-line);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.day-card h4 {
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-line);
+    padding-bottom: 0.25rem;
+}
+
+.meal-slot {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+}
+
+.favorites-flex-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
